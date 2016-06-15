@@ -29,7 +29,7 @@ $ python setup.py install
 
 2. Change the application information in `vars/defaults.yml`.
 
-3. run `ansible-playbook -i hosts deploy.yml`
+3. run `ansible-playbook -i hosts server_env.yml`
 
 This will install:
 
@@ -40,9 +40,9 @@ This will install:
 
 Deployment Flow:
 ```
-ansible-playbook -i hosts deploy.yml --skip-tags "puma"
+ansible-playbook -i hosts server_env.yml --skip-tags "puma"
 <deploy your app>
-ansible-playbook -i hosts deploy.yml --tags "puma"
+ansible-playbook -i hosts server_env.yml --tags "puma"
 ```
 
 

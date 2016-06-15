@@ -35,10 +35,38 @@ Vagrant.configure(2) do |config|
   
   # Configuration for Ansible as Provisioner
   config.vm.provision :ansible do |ansible|
-     ansible.playbook = "deploy.yml"
+     ansible.playbook = "server_env.yml"
      ansible.verbose = "vvv"
      ansible.host_key_checking = false
      ansible.limit = 'all'
      ansible.sudo = true
   end
+
+  # # Setup for local dev env
+
+  # config.vm.box = "ubuntu/trusty64"
+  # config.vm.synced_folder ".", "/vagrant"
+
+  # # Disable the new default behavior introduced in Vagrant 1.7, to
+  # # ensure that all Vagrant machines will use the same SSH key pair.
+  # # See https://github.com/mitchellh/vagrant/issues/5005
+  # config.ssh.insert_key = false
+
+  # config.vm.define :dev do |web|
+  #   web.vm.box = "ubuntu/trusty64"
+  #   web.vm.hostname = "local"
+  #   web.vm.network :private_network, ip: "10.11.11.11"
+  #   web.vm.network :forwarded_port, guest: 3000, host: 3000
+
+  #   web.vm.provider :virtualbox do |vb|
+  #     vb.memory = "512"
+  #   end
+
+  #   web.vm.provision :ansible do |ansible|
+  #     ansible.sudo = true
+  #     ansible.verbose = "v"
+  #     ansible.playbook = "server_env.yml"
+  #   end
+  # end
+
 end

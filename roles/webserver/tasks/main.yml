@@ -1,5 +1,6 @@
-# - include: setup.yml
-# - include: packages.yml 
+- include: setup.yml
+- include: packages.yml 
 - include: chruby.yml 
-# - include: nginx.yml
-# - include: puma.yml 
+- include: nvm.yml
+- include: nginx.yml
+- include: puma.yml 

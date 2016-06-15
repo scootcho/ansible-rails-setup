@@ -8,6 +8,10 @@ sudo: yes
 # ruby config
 ruby_version: 2.3.0
 
+# nvm config
+nvm_version: v0.31.1
+node_version: 5.0
+
 # nginx config
 server_name: enterprise.qwikwire.com
 
