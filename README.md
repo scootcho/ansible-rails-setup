@@ -17,7 +17,7 @@ $ python setup.py install
 
 3. Fill in required variables in `ec2_launch.yml`, such as instance_type, security_group, etc.
 
-4. Make sure `hosts` file exists.
+4. Copy and rename `hosts.example` file to `hosts`.
 
 4. Run `ansible-playbook -i hosts ec2_launch.yml -vvv`
 
