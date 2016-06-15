@@ -1,0 +1,19 @@
+# deployment configuration
+app_name: qwikwire_enterprise
+deploy_directory: /apps/{{ app_name }}
+user: ubuntu
+group: ubuntu
+sudo: yes
+
+# ruby config
+ruby_version: 2.3.0
+
+# nginx config
+server_name: enterprise.qwikwire.com
+
+# postgresql config
+postgresql_version: 9.4
+postgresql_db_name: qwikwire_enterprise_production
+postgresql_db_user: ubuntu
+postgresql_db_password: 
+postgresql_extensions:

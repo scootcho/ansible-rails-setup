@@ -1,0 +1,33 @@
+---
+- name: Upgrade
+  action: apt update_cache=yes upgrade=yes
+
+- name: install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - build-essential
+    - git-core
+    - curl
+    - sqlite3
+    - libsqlite3-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libcurl4-openssl-dev
+    - libncurses5-dev
+    - libgdbm-dev
+    - libssl-dev
+    - libffi-dev
+    - runit
+    - postgresql-9.3
+    - libpq-dev
+    - nodejs
+    - libgdbm-dev
+    - zlib1g-dev
+    - zlibc
+    - zlib1g
+    - make

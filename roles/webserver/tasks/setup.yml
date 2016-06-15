@@ -1,0 +1,22 @@
+- name: Create deployment user
+  user: name={{ user }} comment="Application deployment user"
+
+- authorized_key: user={{ user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Create deployment directory
+  file: path={{ deploy_directory }} owner={{ user }} group={{ group }} state=directory
+
+- name: Make shared directories
+  file: path={{ deploy_directory }}/shared/{{ item }} group={{ user }} owner={{ group }} state=directory
+  with_items:
+    - tmp
+    - log
+    - public
+    - bundle
+    - bin
+    - config
+    - config/puma
+  tags: shared
+
+- name: Install database.yml
+  template: src=database.yml.j2 dest={{ deploy_directory }}/shared/config/database.yml force=yes mode=755 owner={{ user }}

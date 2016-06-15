@@ -1,0 +1,75 @@
+---
+# - name: Install chruby
+#   get_url:
+#     url: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
+#     checksum: sha256:7220a96e355b8a613929881c091ca85ec809153988d7d691299e0a16806b42fd
+#     dest: /opt
+#   tags:
+#     - ruby
+
+- name: Check for chruby runtime
+  stat: path=/opt/rubies/ruby-{{ ruby_version }}
+  register: chruby_runtime
+
+- name: Unarchive chruby
+  unarchive:
+    src: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
+    dest: /opt
+    copy: no
+    creates: /opt/chruby-0.3.9
+  tags:
+    - ruby
+
+- name: Setup chruby
+  shell: scripts/setup.sh
+  args:
+    chdir: /opt/chruby-0.3.9
+  tags:
+    - ruby
+
+- name: Source chruby.sh
+  shell: source /usr/local/share/chruby/chruby.sh
+  args:
+    executable: /bin/bash
+
+- name: Install ruby-installer
+  unarchive:
+    src: https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
+    dest: /opt
+    copy: no
+    creates: /opt/ruby-install-0.6.0
+  tags:
+    - ruby
+
+- name: Setup ruby-install
+  shell: make install
+  args:
+    chdir: /opt/ruby-install-0.6.0
+  tags:
+    - ruby
+
+- name: Install Ruby {{ ruby_version }}
+  shell: ruby-install ruby {{ ruby_version }} --install-dir /opt/rubies/ruby-{{ ruby_version }}
+  args:
+    creates: /opt/rubies/ruby-{{ ruby_version }}
+  tags:
+    - ruby
+
+- name: Deploy chruby autoload script
+  sudo: yes
+  copy: src=../files/chruby.sh
+        dest=/etc/profile.d/chruby.sh
+
+# - name: Install Packages | bundler
+#   gem:
+#     name: bundler
+#     state: latest
+#     user_install: no
+
+# - name: Install Packages | gem
+#   gem:
+#     state: latest
+#     name: "{{ item }}"
+#     user_install: no
+#   with_items: ruby_gems
+# when: ruby_gems is iterable
