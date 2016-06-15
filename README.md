@@ -21,20 +21,29 @@ $ python setup.py install
 
 4. Run `ansible-playbook -i hosts ec2_launch.yml -vvv`
 
-It installs:
+---
 
-- Ruby 2.3
+## Provisioning Server
+
+1. Ensure the server is listed under [webserver] in the `hosts` file once created.
+
+2. Change the application information in `vars/defaults.yml`.
+
+3. run `ansible-playbook -i hosts ruby-webapp.yml`
+
+This will install:
+
+- Ruby (Chruy)
 - PostgreSQL
 - nginx
 - Puma (jungle)
 
-1. Change the app name and deploy directory in `vars/defaults.yml`.
-
-To run:
-
-    $ ansible-playbook -i hosts ruby-webapp.yml -t ruby,deploy,postgresql,nginx
-    $ <deploy your app>
-    $ ansible-playbook -i hosts ruby-webapp.yml -t puma
-
+Deployment Flow:
+```
+ansible-playbook -i hosts deploy.yml -t ruby,deploy,postgresql,nginx
+<deploy your app>
+ansible-playbook -i hosts deploy.yml -t puma
+```
 There is an example Capistrano `deploy.rb` in this repository that you can use too.
+
 
