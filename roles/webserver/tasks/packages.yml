@@ -23,8 +23,6 @@
     - libssl-dev
     - libffi-dev
     - runit
-    - postgresql-9.3
-    - libpq-dev
     - nodejs
     - libgdbm-dev
     - zlib1g-dev

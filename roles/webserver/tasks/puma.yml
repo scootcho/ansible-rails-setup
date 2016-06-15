@@ -20,3 +20,4 @@
 
 - name: Restart puma-manager
   action: service name=puma-manager state=restarted
+  tags: puma

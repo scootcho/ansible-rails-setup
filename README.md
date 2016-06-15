@@ -29,7 +29,7 @@ $ python setup.py install
 
 2. Change the application information in `vars/defaults.yml`.
 
-3. run `ansible-playbook -i hosts ruby-webapp.yml`
+3. run `ansible-playbook -i hosts deploy.yml`
 
 This will install:
 
@@ -40,10 +40,36 @@ This will install:
 
 Deployment Flow:
 ```
-ansible-playbook -i hosts deploy.yml -t ruby,deploy,postgresql,nginx
+ansible-playbook -i hosts deploy.yml --skip-tags "puma"
 <deploy your app>
-ansible-playbook -i hosts deploy.yml -t puma
+ansible-playbook -i hosts deploy.yml --tags "puma"
 ```
+
+
+---
+
+## Deploying with Capistrano
+
 There is an example Capistrano `deploy.rb` in this repository that you can use too.
 
+Make sure your ssh key is avaiable
+
+```
+ssh-add -l
+
+ssh-add ~/.ssh/id_rsa
+```
+
+
+If you're deploying with Capistrano to EC2 using the `key.pem` file. Remember to enable `:pty` option and enable `forward_agent`.
+
+```
+set :pty, true
+
+set :ssh_options, {
+  forward_agent: true,
+  auth_methods: ["publickey"],
+  keys: ["/path/to/key.pem"]
+}
+```
 
