@@ -40,3 +40,7 @@
   command: sudo -iu {{ user }} nvm alias default {{ node_version }}
   when: nvm_check_default|failed
   tags: nvm
+
+- name: Install "webpack" node.js package globally.
+  command: sudo -iu {{ user }} npm install webpack -g
+  tags: webpack
