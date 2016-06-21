@@ -13,13 +13,14 @@ $ git clone git://github.com/boto/boto.git
 $ cd boto
 $ python setup.py install
 ```
-2. Set the AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY in the boto Env
+
+2. Set the `AWS_ACCESS_KEY_ID` & `AWS_SECRET_ACCESS_KEY` in the boto Env
 
 3. Fill in required variables in `ec2_launch.yml`, such as instance_type, security_group, etc.
 
 4. Copy and rename `hosts.example` file to `hosts`.
 
-4. Run `ansible-playbook -i hosts ec2_launch.yml -vvv`
+5. Run `ansible-playbook -i hosts ec2_launch.yml -vvv`
 
 ---
 
